@@ -6,6 +6,7 @@ import time
 import math
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from bubblesort import bubble_sort, insertion_sort, selection_sort, merge_sort, heap_sort, quick_sort
+from tkinter import messagebox
 
 root = Tk()
 root.title('Sorting Algorithm Visualiser')
@@ -46,6 +47,7 @@ def drawData(data, colorArray, chartType):
 def stopAlgorithm():
     global is_running
     is_running = False
+    
 
 def StartAlgorithm():
     global data, comparison_count, is_running
@@ -99,6 +101,7 @@ def StartAlgorithm():
         complexity_label.config (text="Karmaşıklık Analizi:" +  str(int (sizevalue.get()) ** 2 ) )
 
 
+
 def resetAlgorithm():
     global data, is_running
     is_running = False
@@ -122,11 +125,11 @@ def resetAlgorithm():
         complexity_label.config (text="Karmaşıklık Analizi:" + str(int (sizevalue.get()) ** 2 ) ) 
     elif selected_algorithm == 'Insertion Sort':
         complexity_label.config (text="Karmaşıklık Analizi:" +  str(int (sizevalue.get()) ** 2 ) )
-
+        
 
 def speed():
     speed_value = speedscale.get()
-    if speed_value == 000.1:
+    if speed_value == 0.001:
         return 0.001
     elif speed_value == 0.3:
         return 0.05
@@ -149,6 +152,7 @@ def speed():
     else:
         return 0.001
 
+
 def Generate():
     global data
     print('Selected Algorithm: ' + algo_menu.get())
@@ -162,6 +166,8 @@ def Generate():
     if sizeevalue < 3:
         sizeevalue = 3
 
+    if maxivalue - minivalue < sizeevalue:
+        messagebox.showerror("Hata", "Min-Max aralığı Size değerinden küçük olamaz!")
     data = random.sample(range(minivalue, maxivalue + 1), sizeevalue)
     print(data)
     drawData(data, ['yellow' for _ in range(len(data))], selected_chart_type.get())
